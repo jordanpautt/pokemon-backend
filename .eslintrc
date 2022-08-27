@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "key-spacing": [
+      "error", {
+        "align": { "beforeColon": true, "afterColon": true, "on": "colon" }
+      }
+    ],
+    "global-require": "off",
+    "newline-per-chained-call": "off",
+    "import/no-dynamic-require": "off",
+    "quotes": [ "error", "single", { "allowTemplateLiterals": true }],
+    "class-methods-use-this": "off",
+    "semi-style": ["error", "last"],
+    "semi":[2,"always"]
+  }
+}
