@@ -1,11 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
-import { IAxiosOption } from '../../domain/interfaces/axios.interfaces';
+import axios, { AxiosResponse} from 'axios';
+import { IPagination } from '../../domain/interfaces/pagination.interface';
 
-async function buildAxiosIntans(options: IAxiosOption) {
-const {url, ...axiosoptions} = {...options};
-  const instance : AxiosInstance= axios.create();
-  const { data } = await instance(url);
-  return data;  
+async function get( options:IPagination): Promise<AxiosResponse>{
+  const url = options?.url ?? `https://pokeapi.co/api/v2/pokemon?limit=${options?.limit}&offset=${options?.offset}`;
+  const data = await axios.get(url);
+  return data;
 }
 
-export default buildAxiosIntans;
+export default {
+  get,
+};
