@@ -8,7 +8,7 @@ const readAll = async(parameters: IPagination) :Promise<IPokemonInfo[]> => {
 };
 
 const readOne = async (id: number) :Promise<IPokemonInfo> => {
-  const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+  const url = `https://pokeapi.co/api/v2/pokemon${id}`;
   const { data: pokemonInfo } = await axiosRequest.get({ url });
   return pokemonHooks.pokemonDataParser(pokemonInfo);
 };

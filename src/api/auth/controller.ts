@@ -8,6 +8,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const result = await authService.login(userData);
     return res.status(201).json({ result });
   } catch (error) {
+    console.log('error:',error);
+    
     return next(error);
   }
 };

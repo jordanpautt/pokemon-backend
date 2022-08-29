@@ -8,13 +8,15 @@ const login = async (userData: Pick<IUser, 'name' | 'password'>) => {
   }
 
   const user = await User.findOne({ name: userData.name });
+  const theError = JSON.stringify({code: 'ERROR',status: 400, message: 'error de prueba'});
   if (!user) {
-    throw new Error('User does not exist.');
+   // throw new Error(theError);
+    throw {name: 'PokemonError', code: 'ERROR',status: 400, message: 'error de prueba'};
   }
 
   const isMatch = await user.comparePassword(userData.password);
   if (!isMatch) {
-    throw new Error('The name or password is incorrect.');
+    throw {code: 'nuew error', message: 'error prueba', status: 400};
   }
   const token = generateJWT(
     { name: userData.name },
