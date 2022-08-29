@@ -1,15 +1,7 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import  bcrypt  from 'bcrypt';
-import { model, Schema, Document } from 'mongoose';
-
-export interface IUser extends Document {
-  name:string,
-  nickname:string,
-  team:'rojo' | 'azul' | 'amarillo';
-  password: string;
-  last_connection:boolean;
-  comparePassword: (password: string) => Promise<boolean>
-}
+import bcrypt from 'bcrypt';
+import { model, Schema } from 'mongoose';
+import { IUser } from '../interfaces/user.interface';
 
 const userSchema = new Schema({
   name: {
@@ -17,27 +9,26 @@ const userSchema = new Schema({
     unique   : true,
     required : true,
   },
-	nickname: {
-		type     : String, 
-		unique   : true,
+  nickname: {
+    type     : String,
     required : true,
-	},
-	team: {
-		type     : String, 
-		enum     : ['rojo', 'amarillo', 'rojo'],
+  },
+  team: {
+    type     : String,
+    enum     : ['rojo', 'amarillo', 'rojo'],
     required : true,
-	},
-	last_connection: {
-		type    : Boolean,
-		default : false
-	},
+  },
+  last_connection: {
+    type    : Boolean,
+    default : true,
+  },
   password: {
     type     : String,
-    required : true
-  }
+    required : true,
+  },
 });
 
-userSchema.pre<IUser>('save', async function(next) {
+userSchema.pre<IUser>('save', async function (next) {
   const user = this;
 
   if (!user.isModified('password')) return next();
@@ -49,7 +40,7 @@ userSchema.pre<IUser>('save', async function(next) {
   next();
 });
 
-userSchema.methods.comparePassword = async function(
+userSchema.methods.comparePassword = async function (
   password: string
 ): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
