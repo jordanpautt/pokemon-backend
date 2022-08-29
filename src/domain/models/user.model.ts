@@ -15,7 +15,7 @@ const userSchema = new Schema({
   },
   team: {
     type     : String,
-    enum     : ['rojo', 'amarillo', 'rojo'],
+    enum     : ['red', 'yellow', 'blue'],
     required : true,
   },
   last_connection: {

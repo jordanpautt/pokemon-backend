@@ -1,5 +1,5 @@
 import pokemonHooks from './pokemon.hooks';
-import axiosRequest from '../../modules/axios/axios.options';
+import axiosRequest from '../../modules/axios/axios.module';
 import { IPokemonInfo } from './../../domain/interfaces/pokemon.interface';
 import { IPagination } from '../../domain/interfaces/pagination.interface';
 

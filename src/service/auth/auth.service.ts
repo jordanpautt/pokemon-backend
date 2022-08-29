@@ -1,20 +1,20 @@
-import { IUser } from './../../domain/interfaces/user.interface';
 import User from '../../domain/models/user.model';
+import { IUser } from './../../domain/interfaces/user.interface';
 import { generateJWT } from '../../libraries/tools/jwt-create';
 
 const login = async (userData: Pick<IUser, 'name' | 'password'>) => {
   if (!userData.name || !userData.password) {
-    throw new Error('Por favor. Ingresar name o password');
+    throw new Error('Please enter your name or password.');
   }
 
   const user = await User.findOne({ name: userData.name });
   if (!user) {
-    throw new Error('El usuario no existe.');
+    throw new Error('User does not exist.');
   }
 
   const isMatch = await user.comparePassword(userData.password);
   if (!isMatch) {
-    throw new Error('El name o la password es incorrecta.');
+    throw new Error('The name or password is incorrect.');
   }
   const token = generateJWT(
     { name: userData.name },
@@ -25,12 +25,12 @@ const login = async (userData: Pick<IUser, 'name' | 'password'>) => {
 
 const register = async (userData: IUser) => {
   if (!userData.name || !userData.password) {
-    throw new Error('Por favor. Ingresar name o password');
+    throw new Error('Please enter your name or password.');
   }
 
   const user = await User.findOne({ name: userData.name });
   if (user) {
-    throw new Error('El usuario ya existe.');
+    throw new Error('The user already exists.');
   }
 
   const token = generateJWT(

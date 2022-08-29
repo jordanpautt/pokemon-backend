@@ -9,7 +9,7 @@ const validateJWT = (req: Request, res: Response, next: NextFunction) => {
       tokenBearer && tokenBearer.startsWith('Bearer ')
         ? tokenBearer.replace('Bearer ', '')
         : null;
-    if (!tokenBearer) throw new Error('Jwt invalido.');
+    if (!tokenBearer) throw new Error('Jwt not valid.');
     jwt.verify(tokenBearer, process.env.JWT_SECRET || 'somesecrettoken');
   } catch (error) {
     return next({ error });

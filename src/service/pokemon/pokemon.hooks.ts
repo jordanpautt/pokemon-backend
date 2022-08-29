@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axiosRequest from '../../modules/axios/axios.options';
+import axiosRequest from '../../modules/axios/axios.module';
 import { IPagination } from '../../domain/interfaces/pagination.interface';
 import { IPokemonInfo } from '../../domain/interfaces/pokemon.interface';
 
@@ -8,7 +8,6 @@ const buildListPokemon = async (parameters: IPagination) : Promise<IPokemonInfo[
 
   const pokemonParse: Array<IPokemonInfo> = await Promise.all<IPokemonInfo>(
     pokemonList.results.map(async ({ url }:any) => {
-        
       const { data: pokemonInfo } = await axiosRequest.get({ url });
       return pokemonDataParser(pokemonInfo);
     })
